@@ -166,20 +166,42 @@
     </div>
 
     <script>
-        function askAI() {
+async function askAI() {
+    const question = document.getElementById("question").value.trim();
+    const response = document.getElementById("response");
 
-            const question = document.getElementById("question").value;
-            const response = document.getElementById("response");
+    if (!question) {
+        response.innerText = "Please enter a question first.";
+        return;
+    }
 
-            if (question.trim() === "") {
-                response.innerText = "Please enter a question first.";
-                return;
-            }
+    response.innerText = "Thinking... 🤔";
 
-            response.innerText =
-                "Your question: " + question +
-                "\n\nAI connection will be added in the next step 🚀";
+    try {
+        const result = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: question
+            })
+        });
+
+        const data = await result.json();
+
+        if (!result.ok) {
+            throw new Error(data.error || "Something went wrong");
         }
+
+        response.innerText = data.answer;
+
+    } catch (error) {
+        response.innerText =
+            "Sorry, something went wrong. Please try again.";
+        console.error(error);
+    }
+}
     </script>
 
 </body>
