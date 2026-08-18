@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSathi AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 17px;
+        }
+
+        .chat-box {
+            background: #1e293b;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .response {
+            margin-top: 20px;
+            padding: 18px;
+            background: #0f172a;
+            border-radius: 12px;
+            min-height: 80px;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>🤖 CodeSathi AI</h1>
+            <p>Your AI partner for coding & learning</p>
+        </header>
+
+        <div class="chat-box">
+
+            <textarea id="question"
+                placeholder="Ask something... For example: Explain recursion in Python"></textarea>
+
+            <button onclick="askAI()">Ask CodeSathi AI</button>
+
+            <div class="response" id="response">
+                Your AI response will appear here...
+            </div>
+
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+                <h3>💻 Coding</h3>
+                <p>Understand and improve your code.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📚 Study</h3>
+                <p>Learn difficult topics easily.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🧠 AI Help</h3>
+                <p>Ask questions and get assistance.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function askAI() {
+
+            const question = document.getElementById("question").value;
+            const response = document.getElementById("response");
+
+            if (question.trim() === "") {
+                response.innerText = "Please enter a question first.";
+                return;
+            }
+
+            response.innerText =
+                "Your question: " + question +
+                "\n\nAI connection will be added in the next step 🚀";
+        }
+    </script>
+
+</body>
+</html>
