@@ -4,15 +4,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body;
+    const { message } = req.body || {};
 
     if (!message) {
       return res.status(400).json({ error: "Message is required" });
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY is missing" });
+    }
+
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
-        process.env.GEMINI_API_KEY,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: {
@@ -21,11 +26,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           contents: [
             {
-              parts: [
-                {
-                  text: message
-                }
-              ]
+              parts: [{ text: message }]
             }
           ]
         })
@@ -40,15 +41,15 @@ export default async function handler(req, res) {
       });
     }
 
-    const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response received.";
-
-    return res.status(200).json({ answer });
+    return res.status(200).json({
+      answer:
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No answer received."
+    });
 
   } catch (error) {
     return res.status(500).json({
-      error: "Server error"
+      error: error.message || "Server error"
     });
   }
 }
